@@ -9,3 +9,19 @@ export const getTracks = () => {
         })
     }
 }
+
+export const getTrack = (id) => {
+    return async (dispatch) => {
+        const response = await itunes.get(`lookup?id=${id}`)
+        dispatch({
+            type: "GET_TRACK",
+            payload: response.data
+        })
+    }
+}
+
+export const clearTrack = () => {
+    return {
+        type: "CLEAR_TRACK"
+    }
+}

@@ -1,30 +1,21 @@
 import React from "react"
 
-import { connect } from "react-redux"
-import { getTracks } from "../actions"
+import {Router, Route} from "react-router-dom"
 
-import Track from "../components/Track"
+import history from "../history"
+
+import TrackList from "../components/TrackList"
+import DetailView from "../components/DetailView"
 
 class App extends React.Component{
-    componentDidMount(){
-        this.props.getTracks("search?term=rock&media=music")
-    }
-
-    renderTracklist = () => {
-        return this.props.tracks.map(track => <Track name={track.trackName}/>)
-    }
-
     render(){
-        if(!this.props.tracks){
-            return <p>loading...</p>
-        } else return <div>{this.renderTracklist()}</div>
+        return(
+            <Router history={history}>
+                <Route path="/" exact component={TrackList}/>
+                <Route path="/details/:id" exact component={DetailView}/>
+            </Router>
+        )
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        tracks: state.tracks.tracks
-    }
-}
-
-export default connect(mapStateToProps, { getTracks })(App)
+export default App
