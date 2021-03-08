@@ -1,5 +1,7 @@
 import { combineReducers } from "redux"
 
+import dataReducer from "./dataReducer"
+
 export default combineReducers({
-    null: null
+    tracks: dataReducer
 })

@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react"
+import ReactDOM from "react-dom"
 
 import { Provider } from "react-redux"
 import {createStore, applyMiddleware, compose} from "redux"
@@ -19,5 +19,6 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <App/>
-    </Provider>
+    </Provider>,
+    document.querySelector("#root")
 )
