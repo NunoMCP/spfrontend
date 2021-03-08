@@ -1,0 +1,3 @@
+const reducerSwitch = (state ={}, action){
+
+}
