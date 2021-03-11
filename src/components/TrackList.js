@@ -19,6 +19,7 @@ const renderTracklist = (tracks) => {
 const TrackList = () => {
     let tracks = useSelector(state => state.data.tracks)
     let dispatch = useDispatch()
+
     
     useEffect(() => {
         dispatch(getTracks("search?term=rock&media=music"))

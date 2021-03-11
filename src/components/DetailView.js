@@ -4,22 +4,23 @@ import { getTrack, clearTrack } from "../actions"
 
 import { useSelector, useDispatch } from "react-redux"
 
+import { useParams } from "react-router-dom"
+
 const msToTime = (ms) => {
     let minutes = Math.floor(ms / 60000)
     let seconds = ((ms % 60000) / 1000).toFixed(0)
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds
 }
 
-
-
 const DetailView = (props) => {
     const dispatch = useDispatch()
     let track = useSelector(state => state.data.track)
+    let { id } = useParams()
     
     useEffect(() => {
-        dispatch(getTrack(props.match.params.id))
+        dispatch(getTrack(id))
         return dispatch(clearTrack())
-        }, [dispatch, props.match.params.id]
+        }, [dispatch, id]
     )
 
     if(!track){
