@@ -12,7 +12,7 @@ const msToTime = (ms) => {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds
 }
 
-const DetailView = (props) => {
+const DetailView = () => {
     const dispatch = useDispatch()
     let track = useSelector(state => state.data.track)
     let { id } = useParams()

@@ -1,22 +1,13 @@
-import itunes from "../api/itunes"
-
 export const getTracks = () => {
-    return async (dispatch) => {
-        const response = await itunes.get("search?term=rock&media=music")
-        dispatch({
-            type: "GET_TRACKS",
-            payload: response.data
-        })
+    return {
+        type: "GET_TRACKS"
     }
 }
 
 export const getTrack = (id) => {
-    return async (dispatch) => {
-        const response = await itunes.get(`lookup?id=${id}`)
-        dispatch({
-            type: "GET_TRACK",
-            payload: response.data
-        })
+    return {
+        type: "GET_TRACK",
+        payload: id
     }
 }
 
