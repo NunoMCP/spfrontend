@@ -2,12 +2,12 @@ import React, { useEffect } from "react"
 
 import { getTracks } from "../actions"
 
-import { connect } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import Track from "../components/Track"
 
-const renderTracklist = (props) => {
-    return props.tracks.map(track => <Track
+const renderTracklist = (tracks) => {
+    return tracks.map(track => <Track
         key={track.trackId}
         trackName={track.trackName}
         artist={track.artistName}
@@ -16,21 +16,19 @@ const renderTracklist = (props) => {
         id={track.trackId}/>)
 }
 
-const TrackList = (props) => {
+const TrackList = () => {
+    let tracks = useSelector(state => state.data.tracks)
+    let dispatch = useDispatch()
+
+    
     useEffect(() => {
-        props.getTracks("search?term=rock&media=music")
-        }, []
+        dispatch(getTracks("search?term=rock&media=music"))
+        }, [dispatch]
     )
 
-    if(!props.tracks){
+    if(!tracks){
         return (<div>Loading...</div>)
-    } else return (<div>{renderTracklist(props)}</div>)
+    } else return (<div>{renderTracklist(tracks)}</div>)
 }
 
-const mapStateToProps = (state) => {
-    return {
-        tracks: state.data.tracks
-    }
-}
-
-export default connect(mapStateToProps, { getTracks })(TrackList)
+export default TrackList

@@ -2,7 +2,9 @@ import React, { useEffect } from "react"
 
 import { getTrack, clearTrack } from "../actions"
 
-import { connect } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+
+import { useParams } from "react-router-dom"
 
 const msToTime = (ms) => {
     let minutes = Math.floor(ms / 60000)
@@ -11,33 +13,31 @@ const msToTime = (ms) => {
 }
 
 const DetailView = (props) => {
+    const dispatch = useDispatch()
+    let track = useSelector(state => state.data.track)
+    let { id } = useParams()
+    
     useEffect(() => {
-        props.getTrack(props.match.params.id)
-        return props.clearTrack()
-        }, []
+        dispatch(getTrack(id))
+        return dispatch(clearTrack())
+        }, [dispatch, id]
     )
 
-    if(!props.track){
+    if(!track){
         return <div>Loading song data</div>
     } else return(
         <div>
-            Artwork: <img alt="" src={props.track.artworkUrl60}/><br/>
-            Track name: {props.track.trackName}<br/>
-            Artist: {props.track.artistName}<br/>
-            Track price: {props.track.trackPrice}<br/>
-            Track duration: {msToTime(props.track.trackTimeMillis)}<br/>
-            Release date: {props.track.releaseDate.match(/\d\d\d\d-\d\d-\d\d/gm)}<br/>
+            Artwork: <img alt="" src={track.artworkUrl60}/><br/>
+            Track name: {track.trackName}<br/>
+            Artist: {track.artistName}<br/>
+            Track price: {track.trackPrice}<br/>
+            Track duration: {msToTime(track.trackTimeMillis)}<br/>
+            Release date: {track.releaseDate.match(/\d\d\d\d-\d\d-\d\d/gm)}<br/>
 
-            <a href={props.track.trackViewUrl}><button>More details</button></a>
+            <a href={track.trackViewUrl}><button>More details</button></a>
 
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        track: state.data.track
-    }
-}
-
-export default connect(mapStateToProps, {getTrack, clearTrack})(DetailView)
+export default DetailView

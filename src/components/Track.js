@@ -1,8 +1,10 @@
 import React from "react"
 
-import history from "../history"
+import { useHistory } from "react-router-dom"
 
 const Track = (props) => {
+    let history = useHistory()
+    
     return (
         <div style={{"margin": "25px 5px"}}>
             <img alt="" src={props.artworkUrl}/><br/>
