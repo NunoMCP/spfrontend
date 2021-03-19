@@ -22,7 +22,7 @@ const TrackList = () => {
 
     
     useEffect(() => {
-        dispatch(getTracks("search?term=rock&media=music"))
+        dispatch(getTracks())
         }, [dispatch]
     )
 
